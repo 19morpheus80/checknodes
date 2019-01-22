@@ -3,7 +3,9 @@
 #11898 = TurtleCoin
 #6969  = DeroGold
 
-declare -a sList=("-DeroGold" "97.64.253.98:6969" "185.17.27.105:6969" "51.255.209.200:6969" "23.96.93.180:6969" "-TurtleCoin" "turtlenode.online:11898" "cuveetrtl.czech.cloud:11898" "nodes.hashvault.pro:11898" "-Testnet" "turtlenode.online:29802" "vpn.llama.horse:29802" "seed1.xlscoin.info:29802" "seed2.xlscoin.info:29802")
+declare -a sList=("-DeroGold" "97.64.253.98:6969" "185.17.27.105:6969" "51.255.209.200:6969" "23.96.93.180:6969"
+                  "-TurtleCoin" "turtlenode.online:11898" "cuveetrtl.czech.cloud:11898" "91.139.116.6:11898" "nodes.hashvault.pro:11898"
+                  "-Testnet" "turtlenode.online:29802" "vpn.llama.horse:29802" "seed1.xlscoin.info:29802" "seed2.xlscoin.info:29802")
 
 _hr="------------------------"
 
