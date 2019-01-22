@@ -1,17 +1,19 @@
 #!/bin/bash
+#Edit this array with the list of nodes you want to watch
+#11898 = TurtleCoin
+#6969  = DeroGold
 
-declare -a sList=("97.64.253.98" "185.17.27.105" "51.255.209.200" "23.96.93.180")
-_port="6969"
+declare -a sList=("97.64.253.98:6969" "185.17.27.105:6969" "51.255.209.200:6969" "23.96.93.180:6969")
 
 fextract () {
     echo "$1" | grep $2 | grep -o '[0-9]\+'
 }
 while true; do
     printf "\n$(date):\n"
-    printf "| IP ADDRESS\t\t| PING\t| DIFFICULTY\t| HASHRATE\t| HEIGHT (+/-)\t| CONNECTIONS |\n"
+    printf "| IP ADDRESS:PORT\t| PING\t| DIFFICULTY\t| HASHRATE\t| HEIGHT (+/-)\t| CONNECTIONS |\n"
     for i in "${sList[@]}"; do
         _timer=$(date +%s)
-        _noderesp="$(wget -qO- $i:$_port/info | jq '{difficulty, hashrate, height, network_height, status, synced, incoming_connections_count, outgoing_connections_count}')"
+        _noderesp="$(wget -qO- $i/info | jq '{difficulty, hashrate, height, network_height, status, synced, incoming_connections_count, outgoing_connections_count}')"
         #echo "$(wget -qO- $i:$_port/info | jq '{difficulty, hashrate, height, network_height, status, synced, incoming_connections_count, outgoing_connections_count}')"
         #        echo $_resplen
 
@@ -25,7 +27,7 @@ while true; do
             _incoming=$(echo "$_noderesp" | grep incoming_connections_count | grep -o '[0-9]\+')
             _outgoing=$(echo "$_noderesp" | grep outgoing_connections_count | grep -o '[0-9]\+')
             _synced=$(echo "$_noderesp" | grep synced | grep -o true)
-            printf "| $i   \t| $_timer\t| $_difficulty\t| $_hashrate\t| $_netheight ($_heightdiff)\t| IN/OUT:$_incoming/$_outgoing |\n"
+            printf "| $i \t| $_timer\t| $_difficulty\t| $_hashrate\t| $_netheight ($_heightdiff)\t| IN/OUT:$_incoming/$_outgoing |\n"
         else
             printf "| No response from $i\n"
         fi
