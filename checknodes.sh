@@ -1,11 +1,14 @@
-#!/bin/bash
-#Edit this array with the list of nodes you want to watch
-#11898 = TurtleCoin
-#6969  = DeroGold
 
-declare -a sList=("-DeroGold" "97.64.253.98:6969" "185.17.27.105:6969" "51.255.209.200:6969" "23.96.93.180:6969"
-                  "-TurtleCoin" "turtlenode.online:11898" "cuveetrtl.czech.cloud:11898" "91.139.116.6:11898" "nodes.hashvault.pro:11898"
-                  )
+#!/bin/bash
+#Universal checker to see if node is up. Just run the program, enter the details when prompted. 
+
+
+
+read -p 'IP address or node name: ' Result 
+read -p 'Port number: ' Port
+
+$i=$Result":"$Port
+
 
 _hr="------------------------"
 
@@ -16,7 +19,7 @@ fextract () {
 while true; do
     printf "\n$(date):\n| IP ADDRESS:PORT\t\t| PING\t| DIFFICULTY\t| HASHRATE\t| HEIGHT (+/-)\t| CONNECTIONS |\n"
 
-    for i in "${sList[@]}"; do
+    for i in "${Result}"; do
 
 				if [ ${i:0:1} = "-" ]; then
 				    printf "\n$i$_hr\n"
@@ -40,13 +43,17 @@ while true; do
             _incoming=$(echo "$_noderesp" | grep incoming_connections_count | grep -o '[0-9]\+')
             _outgoing=$(echo "$_noderesp" | grep outgoing_connections_count | grep -o '[0-9]\+')
             _synced=$(echo "$_noderesp" | grep synced | grep -o true)
-            if [ "${#i}" -lt "22" ]; then
+            if [ "${#i}" -lt "21" ]; then
                 i+="\t"
             fi
             printf "| $i\t| $_timer\t| $_difficulty\t| $_hashrate\t| $_netheight ($_heightdiff)\t| IN/OUT:$_incoming/$_outgoing |\n"
         else
             printf "| No response from $i\n"
         fi
+    fi
+    done
+    sleep 10
+done
     fi
     done
     sleep 10
